@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-// import { Chart } from 'angular-highcharts';
-import { ChartsModule } from 'ng2-charts';
+// import { Highcharts } from 'angular-highcharts';
+// import { chart} from 'highcharts';
+import * as Highcharts from 'highcharts';
+// import { ChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -8,7 +10,7 @@ import { ChartsModule } from 'ng2-charts';
   styleUrls: ['./home-dashboard.component.css']
 })
 export class HomeDashboardComponent implements OnInit {
-   
+  options:Object;
   view: any[] = [700, 400];
 
   colorScheme = {
@@ -22,64 +24,92 @@ export class HomeDashboardComponent implements OnInit {
   }
 
   constructor() { 
-    
   }
-
   ngOnInit() {
-  }
-  // chart = new Chart({
-  //   chart:{
-  //     type: 'line'
-  //   },
-  //   title:{
-  //     text:'Memory'
-  //   },
-  //   credits:{
-  //     enabled:false
-  //   },
-  //   series:[{
-  //     name:'Line 1',
-  //     data: [1,2,3]
-  //   }]
-  // });
-  // add() {
-  //   this.chart.addPoint(Math.floor(Math.random()*10));
-  // }
-  public barChartOptions:any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
- 
-  public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
- 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
- 
-  public randomize():void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-  }
+    debugger;    
+    Highcharts.chart('container1',{
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'VDA<br>Server<br>Memory Capacity',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Storage Capacity',
+            innerSize: '50%',
+            data: [
+                ['Occupied',   350],
+                ['Free',       150],
+                {
+                    name: 'Storage Capacity',
+                    y: 0.2,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ]
+        }]
+    });
+    
+    Highcharts.chart('container', {
 
+      title: {
+          text: 'CPU Utilization'
+      },
+  
+      subtitle: {
+          // text: 'FIDO CLUP'
+      },
+  
+      yAxis: {
+          title: {
+              text: 'Memory'
+          }
+      },
+      legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle'
+      },
+  
+      plotOptions: {
+          series: {
+              pointStart: 1
+          }
+      },
+  
+      series: [{
+          name: 'FIDO CLUP',
+          data: [2, 2.5, 1.75, 5, 6, 3.75, 5]
+      }, {
+          name: 'VDA+',
+          data: [2.49, 2.40, 2.97, 2.98, 3.24, 3.02, 3.81, 4.04]
+      }]
+  
+  });
+  }
 }

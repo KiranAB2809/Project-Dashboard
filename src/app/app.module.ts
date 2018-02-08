@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ChartsModule } from 'ng2-charts';
-// import { ChartModule } from 'angular-highcharts';
+// import { ChartsModule } from 'ng2-charts';
 import { Routes, RouterModule } from '@angular/router'; 
 
 import { appRoutes } from './app.routing';
@@ -20,7 +19,6 @@ import { MasterComponent } from './components/master/master.component';
   ],
   imports: [
     BrowserModule,
-    ChartsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   providers: [],
