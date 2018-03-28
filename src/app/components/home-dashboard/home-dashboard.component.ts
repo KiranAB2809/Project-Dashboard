@@ -25,8 +25,7 @@ export class HomeDashboardComponent implements OnInit {
 
   constructor() { 
   }
-  ngOnInit() {
-    debugger;    
+  ngOnInit() { 
     Highcharts.chart('container1',{
         chart: {
             plotBackgroundColor: null,
